@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Student</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+        .add-student-form {
+            margin-top: 20px;
+            width: 80%;
+            max-width: 400px;
+        }
+        .add-student-form input {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+        .add-student-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>新增学生</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form class="add-student-form" action="{{ url_for('add_student') }}" method="POST">
+        <input type="text" name="name" placeholder="姓名" required>
+        <input type="number" name="age" placeholder="年龄" required>
+        <button type="submit">提交</button>
+    </form>
+
+    <a href="{{ url_for('admin') }}">返回管理页面</a>
+</body>
+</html>

@@ -27,10 +27,52 @@
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
+        .add-student-form {
+            margin-top: 20px;
+            width: 80%;
+            max-width: 800px;
+        }
+        .add-student-form input {
+            margin-right: 10px;
+            padding: 5px;
+        }
+        .add-student-form button {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .add-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
     <h1>Student Information</h1>
+    
+    <div style="text-align: right; padding: 10px;">
+        <a href="{{ url_for('logout') }}" class="btn btn-danger">登出</a>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <!-- 新增学生按钮 -->
+    <a href="{{ url_for('add_student') }}" class="add-button">新增学生</a>
+
+    <!-- 原有的学生信息表格 -->
     <table>
         <thead>
             <tr>
