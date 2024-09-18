@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑学生信息</title>
+</head>
+<body>
+    <h1>编辑学生信息</h1>
+    <form method="POST">
+        <label for="name">姓名：</label>
+        <input type="text" id="name" name="name" value="{{ student.name }}" required><br>
+        <label for="age">年龄：</label>
+        <input type="number" id="age" name="age" value="{{ student.age }}" required><br>
+        <input type="submit" value="保存">
+    </form>
+    <a href="{{ url_for('admin') }}">返回</a>
+</body>
+</html>

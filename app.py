@@ -73,5 +73,38 @@ def add_student():
     # 处理 GET 请求
     return render_template('add.html')
 
+@app.route('/edit_student/<int:student_id>', methods=['GET', 'POST'])
+@login_required
+def edit_student(student_id):
+    global students
+    if request.method == 'POST':
+        name = request.form['name']
+        age = int(request.form['age'])
+        for student in students:
+            if student['id'] == student_id:
+                student['name'] = name
+                student['age'] = age
+                flash('学生信息更新成功', 'success')
+                return redirect(url_for('admin'))
+        flash('学生信息更新失败', 'danger')
+        return redirect(url_for('admin'))
+    
+    # 处理 GET 请求     
+    for student in students:
+        if student['id'] == student_id:
+            return render_template('edit.html', student=student)
+    flash('学生信息获取失败', 'danger')
+    return redirect(url_for('admin'))
+
+@app.route('/delete_student/<int:student_id>')
+@login_required
+def delete_student(student_id):
+    global students
+    students = [student for student in students if student['id'] != student_id]
+    flash('学生信息删除成功', 'success')
+    return redirect(url_for('admin'))
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
